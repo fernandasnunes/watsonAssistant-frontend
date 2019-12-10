@@ -58,10 +58,12 @@ export class ChatComponent implements OnInit {
     {
       input: text,
       context: this.context
-    };
+    }
     this.returnAssistant(messageWatson)
 
   }
+
+
 
   returnAssistant(objConversation) {
 
