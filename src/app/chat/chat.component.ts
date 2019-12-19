@@ -14,8 +14,7 @@ export class ChatComponent implements OnInit {
 
   userInput: string;
   array = []
-  context= {};
-
+  context = {};
 
   // pegar o valor que esta no input
   // enviar o valor do input para o serviço do watson
@@ -25,28 +24,34 @@ export class ChatComponent implements OnInit {
   // fazer com que o scroll da página se atualize
 
   ngOnInit() {
-    this.ConversationFormat('');
+ this.ConversationFormat('');
+
   }
+
+
+
 
   //pega o envio do usuário
   onSubmit() {
-    this.array.push({
-      sentBy: 'user',
-      text: this.userInput
+    console.log("-----on submit -----")
+    console.log(this.userInput)
+    console.log(this.context)
+    if (this.userInput) {
+      this.array.push({
+        sentBy: 'user',
+        text: this.userInput
 
+      })
 
-    })
+      this.ConversationFormat(this.userInput)
+       this.userInput = null
 
-    this.ConversationFormat(this.userInput)
-    this.userInput = null
-
+    }
   }
-
   //pega o output do bot
   responseAssistant(text) {
 
     this.array.push({
-
       sentBy: 'bot',
       text: text
 
@@ -54,25 +59,24 @@ export class ChatComponent implements OnInit {
   }
   //monta o input do usuário e o output do bot para o envio, adicionando o context :) 
   ConversationFormat(text) {
-    const messageWatson =
-    {
-      input: text,
+    const messageWatson = {
+      //se estou recebendo messege no backend, devo colocar message
+      message: text,
       context: this.context
     }
+    console.log("----- conversation format -----")
+    console.log(messageWatson)
     this.returnAssistant(messageWatson)
-
   }
 
-
-
   returnAssistant(objConversation) {
-
     this.watsonAssistantService.postConversation(objConversation).subscribe(response => {
-
+      console.log("----- response -----")
+      console.log(response)
       this.context = response.context;
-      response.output.text.map((content) =>{
+      response.output.text.map((content) => {
         //atruibuição de valor no response
-        if(content){
+        if (content) {
           this.responseAssistant(content)
 
         }
@@ -80,12 +84,14 @@ export class ChatComponent implements OnInit {
           content = null
 
         }
-      
-      
+
       });
-    
+
     })
 
   }
+
+
+
 
 }

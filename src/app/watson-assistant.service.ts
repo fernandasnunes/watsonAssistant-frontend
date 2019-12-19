@@ -19,7 +19,7 @@ export class WatsonAssistantService {
   };
 
    postConversation(objConversation): Observable<any> {
-    return this.http.post<any>('http://localhost:3000'+ '/conversation', objConversation)
+    return this.http.post<any>('http://173.193.106.61:31176'+ '/conversation/', objConversation)
       .pipe(
         map(response => {
         return response; 

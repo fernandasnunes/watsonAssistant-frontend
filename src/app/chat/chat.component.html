@@ -10,15 +10,17 @@
 
             <div *ngFor="let message of array">
 
-
-
-                <div *ngIf="message.sentBy === 'bot'">
-
-                    <div class="message">
-
+                <div [ngClass]="message.sentBy === 'bot'? 'balloon bot': 'balloon user'">
+                    <div *ngIf="message.sentBy === 'user'">
                         <div> {{message.text}}</div>
                     </div>
+                    <div *ngIf="message.sentBy === 'bot'">
 
+                        <div class="message">
+
+                            <div> {{message.text}}</div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -27,8 +29,8 @@
     </div>
 
     <div class="chatFooter">
-        <input type="text" [(ngModel)]="userInput" class="inputMessage" placeholder="Digite aqui sua mensagem para o meu bot">
-        <button (click)="onSubmit()" class="sendButton">Enviar</button>
+        <input type="text" [(ngModel)]='userInput' class="inputMessage" (keyup.enter)="onSubmit()" placeholder="Digite aqui sua mensagem para o meu bot">
+        <button type="submit" (click)="onSubmit()" class="sendButton">Enviar</button>
     </div>
 
 </div>

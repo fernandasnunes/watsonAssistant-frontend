@@ -67,6 +67,11 @@
     font-size: 18px
 }
 
+.balloon {
+    display: flex;
+    width: 100%;
+}
+
 .balloon.user {
     .message {
         background-color: #616161;
@@ -86,11 +91,6 @@
             color: #616161;
         }
     }
-}
-
-.balloon {
-    display: flex;
-    width: 100%;
 }
 
 .message {
